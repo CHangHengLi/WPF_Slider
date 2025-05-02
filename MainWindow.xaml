@@ -1,0 +1,638 @@
+﻿<Window
+    x:Class="SliderDemo.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SliderDemo"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    Title="WPF Slider 控件学习示例"
+    Width="900"
+    Height="650"
+    Background="AntiqueWhite"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid>
+        <TabControl Margin="10">
+            <TabItem Header="基本属性">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20">
+                        <TextBlock
+                            Margin="0,0,0,20"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Text="Slider 基本属性演示" />
+
+                        <!--  属性概述  -->
+                        <TextBlock Margin="0,0,0,20" TextWrapping="Wrap">
+                            Slider控件是WPF中常用的数值选择器控件，允许用户通过拖动滑块在一个连续的数值范围内选择值。
+                            以下演示了Slider的基本属性和常用设置。
+                        </TextBlock>
+
+                        <!--  1. 基本的最小值、最大值和当前值  -->
+                        <GroupBox
+                            Margin="0,0,0,20"
+                            Padding="10"
+                            Header="基本的值范围设置">
+                            <StackPanel>
+                                <TextBlock Margin="0,0,0,10" Text="基本的滑块 (Minimum=0, Maximum=100, Value=50)" />
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    Foreground="#555555"
+                                    TextWrapping="Wrap">
+                                    <Run FontWeight="Bold">Minimum属性</Run>
+                                    ：设置滑块的最小值，用户无法拖动到低于此值的位置。<LineBreak />
+                                    <Run FontWeight="Bold">Maximum属性</Run>
+                                    ：设置滑块的最大值，用户无法拖动到高于此值的位置。<LineBreak />
+                                    <Run FontWeight="Bold">Value属性</Run>
+                                    ：表示滑块当前选中的值，可以通过绑定或编程方式设置。<LineBreak />
+                                    <Run FontWeight="Bold">ValueChanged事件</Run>
+                                    ：当值变化时触发，可用于实时响应用户操作。</TextBlock>
+                                <Slider
+                                    x:Name="basicSlider"
+                                    Width="300"
+                                    HorizontalAlignment="Left"
+                                    Maximum="100"
+                                    Minimum="0"
+                                    ValueChanged="BasicSlider_ValueChanged"
+                                    Value="50" />
+                                <TextBlock
+                                    x:Name="basicSliderValue"
+                                    Margin="0,5,0,0"
+                                    Text="当前值: 50" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!--  2. 步长设置  -->
+                        <GroupBox
+                            Margin="0,0,0,20"
+                            Padding="10"
+                            Header="滑动步长设置">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    Text="带步长设置的滑块 (SmallChange=1, LargeChange=10, TickFrequency=5)"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    Foreground="#555555"
+                                    TextWrapping="Wrap">
+                                    <Run FontWeight="Bold">SmallChange属性</Run>
+                                    ：使用键盘方向键移动滑块时的步长值，默认为1。<LineBreak />
+                                    <Run FontWeight="Bold">LargeChange属性</Run>
+                                    ：使用Page Up/Page Down键移动滑块或点击滑槽空白区域时的步长值，默认为10。<LineBreak />
+                                    <Run FontWeight="Bold">TickFrequency属性</Run>
+                                    ：刻度线之间的间隔值，影响刻度线的显示密度。<LineBreak />
+                                    尝试用键盘方向键和Page Up/Down键控制此滑块，感受不同步长的效果。</TextBlock>
+                                <Slider
+                                    x:Name="stepSlider"
+                                    Width="300"
+                                    HorizontalAlignment="Left"
+                                    LargeChange="10"
+                                    Maximum="100"
+                                    Minimum="0"
+                                    SmallChange="1"
+                                    TickFrequency="5"
+                                    TickPlacement="BottomRight"
+                                    Value="50" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!--  3. 刻度线位置  -->
+                        <GroupBox
+                            Margin="0,0,0,20"
+                            Padding="10"
+                            Header="刻度线位置设置">
+                            <StackPanel>
+                                <TextBlock Margin="0,0,0,10" Text="刻度线位置演示" />
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    Foreground="#555555"
+                                    TextWrapping="Wrap">
+                                    <Run FontWeight="Bold">TickPlacement属性</Run>
+                                    ：控制刻度线的位置，可以设置为None、TopLeft、BottomRight或Both。<LineBreak />
+                                    对于水平方向的滑块，TopLeft表示上方，BottomRight表示下方。<LineBreak />
+                                    对于垂直方向的滑块，TopLeft表示左侧，BottomRight表示右侧。</TextBlock>
+
+                                <TextBlock Margin="0,5,0,0" Text="None (不显示刻度线)" />
+                                <Slider
+                                    Width="300"
+                                    Margin="0,0,0,10"
+                                    HorizontalAlignment="Left"
+                                    Maximum="100"
+                                    TickFrequency="10"
+                                    TickPlacement="None" />
+
+                                <TextBlock Margin="0,5,0,0" Text="TopLeft (刻度线在上方/左侧)" />
+                                <Slider
+                                    Width="300"
+                                    Margin="0,0,0,10"
+                                    HorizontalAlignment="Left"
+                                    Maximum="100"
+                                    TickFrequency="10"
+                                    TickPlacement="TopLeft" />
+
+                                <TextBlock Margin="0,5,0,0" Text="BottomRight (刻度线在下方/右侧)" />
+                                <Slider
+                                    Width="300"
+                                    Margin="0,0,0,10"
+                                    HorizontalAlignment="Left"
+                                    Maximum="100"
+                                    TickFrequency="10"
+                                    TickPlacement="BottomRight" />
+
+                                <TextBlock Margin="0,5,0,0" Text="Both (刻度线在两侧)" />
+                                <Slider
+                                    Width="300"
+                                    HorizontalAlignment="Left"
+                                    Maximum="100"
+                                    TickFrequency="10"
+                                    TickPlacement="Both" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!--  4. 吸附到刻度线  -->
+                        <GroupBox
+                            Margin="0,0,0,20"
+                            Padding="10"
+                            Header="吸附到刻度线">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    Text="IsSnapToTickEnabled=True (滑块会吸附到最近的刻度位置)"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    Foreground="#555555"
+                                    TextWrapping="Wrap">
+                                    <Run FontWeight="Bold">IsSnapToTickEnabled属性</Run>
+                                    ：当设置为True时，滑块会自动吸附到最近的刻度位置，使用户更容易选择精确的值。<LineBreak />
+                                    这对于需要用户选择特定离散值的场景特别有用，比如音量级别、图像缩放倍数等。<LineBreak />
+                                    尝试拖动下面的滑块，感受它如何自动吸附到刻度线位置。</TextBlock>
+                                <Slider
+                                    Width="300"
+                                    HorizontalAlignment="Left"
+                                    IsSnapToTickEnabled="True"
+                                    Maximum="100"
+                                    TickFrequency="10"
+                                    TickPlacement="BottomRight" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!--  5. 自定义刻度点  -->
+                        <GroupBox
+                            Margin="0,0,0,20"
+                            Padding="10"
+                            Header="自定义刻度点">
+                            <StackPanel>
+                                <TextBlock Margin="0,0,0,10" Text="使用Ticks属性设置不规则刻度点" />
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    Foreground="#555555"
+                                    TextWrapping="Wrap">
+                                    <Run FontWeight="Bold">Ticks属性</Run>
+                                    ：允许设置不规则间隔的自定义刻度点位置，使滑块能够适应特定的业务需求。<LineBreak />
+                                    这对于需要非线性刻度或特殊刻度点的场景非常有用，比如对数刻度、指数刻度或具有特殊意义的标记点。<LineBreak />
+                                    下面的例子展示了在0、10、25、50、75和100位置设置刻度点。</TextBlock>
+                                <Slider
+                                    Width="300"
+                                    HorizontalAlignment="Left"
+                                    Maximum="100"
+                                    Minimum="0"
+                                    TickPlacement="BottomRight">
+                                    <Slider.Ticks>
+                                        <sys:Double>0</sys:Double>
+                                        <sys:Double>10</sys:Double>
+                                        <sys:Double>25</sys:Double>
+                                        <sys:Double>50</sys:Double>
+                                        <sys:Double>75</sys:Double>
+                                        <sys:Double>100</sys:Double>
+                                    </Slider.Ticks>
+                                </Slider>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="方向与范围">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20">
+                        <TextBlock
+                            Margin="0,0,0,20"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Text="Slider 方向与选择范围" />
+
+                        <!--  1. 方向设置  -->
+                        <GroupBox
+                            Margin="0,0,0,20"
+                            Padding="10"
+                            Header="滑块方向设置">
+                            <StackPanel>
+                                <TextBlock Margin="0,0,0,10" Text="水平方向 (Orientation=Horizontal)" />
+                                <Slider
+                                    Width="300"
+                                    Margin="0,0,0,20"
+                                    HorizontalAlignment="Left"
+                                    Maximum="100"
+                                    Orientation="Horizontal"
+                                    TickFrequency="10"
+                                    TickPlacement="BottomRight" />
+
+                                <TextBlock Margin="0,0,0,10" Text="垂直方向 (Orientation=Vertical)" />
+                                <Slider
+                                    Height="200"
+                                    HorizontalAlignment="Left"
+                                    Maximum="100"
+                                    Orientation="Vertical"
+                                    TickFrequency="10"
+                                    TickPlacement="BottomRight" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!--  2. 选择范围  -->
+                        <GroupBox
+                            Margin="0,0,0,20"
+                            Padding="10"
+                            Header="选择范围设置">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    Text="带选择范围的滑块 (IsSelectionRangeEnabled=True)"
+                                    TextWrapping="Wrap" />
+                                <Slider
+                                    x:Name="rangeSlider"
+                                    Width="300"
+                                    HorizontalAlignment="Left"
+                                    IsSelectionRangeEnabled="True"
+                                    Maximum="100"
+                                    Minimum="0"
+                                    SelectionEnd="75"
+                                    SelectionStart="25"
+                                    TickFrequency="5"
+                                    TickPlacement="BottomRight"
+                                    ValueChanged="RangeSlider_ValueChanged"
+                                    Value="75" />
+                                <TextBlock
+                                    x:Name="rangeText"
+                                    Margin="0,5,0,0"
+                                    Text="范围: 25 - 75, 当前值: 75" />
+
+                                <Button
+                                    Margin="0,10,0,0"
+                                    Padding="10,5"
+                                    HorizontalAlignment="Left"
+                                    Click="UpdateRange_Click"
+                                    Content="更新范围" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="样式与模板">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20">
+                        <TextBlock
+                            Margin="0,0,0,20"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Text="Slider 样式与模板自定义" />
+
+                        <!--  1. 基本样式  -->
+                        <GroupBox
+                            Margin="0,0,0,20"
+                            Padding="10"
+                            Header="基本样式设置">
+                            <StackPanel>
+                                <TextBlock Margin="0,0,0,10" Text="使用Style设置Slider的外观" />
+                                <Slider
+                                    Width="300"
+                                    Margin="0,0,0,20"
+                                    HorizontalAlignment="Left">
+                                    <Slider.Style>
+                                        <Style TargetType="Slider">
+                                            <Setter Property="Background" Value="LightGray" />
+                                            <Setter Property="Foreground" Value="Blue" />
+                                            <Setter Property="BorderBrush" Value="Gray" />
+                                            <Setter Property="BorderThickness" Value="1" />
+                                        </Style>
+                                    </Slider.Style>
+                                </Slider>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!--  2. 自定义模板  -->
+                        <GroupBox
+                            Margin="0,0,0,20"
+                            Padding="10"
+                            Header="自定义控件模板">
+                            <StackPanel>
+                                <TextBlock Margin="0,0,0,10" Text="使用ControlTemplate自定义Slider外观" />
+                                <Slider
+                                    Width="300"
+                                    Margin="0,10,0,0"
+                                    HorizontalAlignment="Left"
+                                    Maximum="100"
+                                    Value="50">
+                                    <Slider.Template>
+                                        <ControlTemplate TargetType="Slider">
+                                            <Grid>
+                                                <Border
+                                                    x:Name="TrackBackground"
+                                                    Height="4"
+                                                    Background="#E0E0E0"
+                                                    CornerRadius="2" />
+
+                                                <Border
+                                                    x:Name="PART_SelectionRange"
+                                                    Height="4"
+                                                    HorizontalAlignment="Left"
+                                                    Background="#2196F3"
+                                                    CornerRadius="2" />
+
+                                                <Track x:Name="PART_Track">
+                                                    <Track.Thumb>
+                                                        <Thumb Width="20" Height="20">
+                                                            <Thumb.Template>
+                                                                <ControlTemplate TargetType="Thumb">
+                                                                    <Ellipse
+                                                                        Fill="#2196F3"
+                                                                        Stroke="#1565C0"
+                                                                        StrokeThickness="1" />
+                                                                </ControlTemplate>
+                                                            </Thumb.Template>
+                                                        </Thumb>
+                                                    </Track.Thumb>
+                                                </Track>
+                                            </Grid>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelectionRangeEnabled" Value="True">
+                                                    <Setter TargetName="PART_SelectionRange" Property="Visibility" Value="Visible" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelectionRangeEnabled" Value="False">
+                                                    <Setter TargetName="PART_SelectionRange" Property="Visibility" Value="Collapsed" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Slider.Template>
+                                </Slider>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="应用示例">
+                <TabControl SelectionChanged="AppExamples_SelectionChanged">
+                    <!--  音量控制示例  -->
+                    <TabItem Header="音量控制器">
+                        <StackPanel Margin="20">
+                            <TextBlock
+                                Margin="0,0,0,20"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="音量控制器示例" />
+
+                            <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                                <Path
+                                    Margin="0,0,5,0"
+                                    VerticalAlignment="Center"
+                                    Data="M0,5 L3,5 L7,1 L7,9 L3,5 Z"
+                                    Fill="Black" />
+
+                                <!--  音量滑块  -->
+                                <Slider
+                                    x:Name="volumeSlider"
+                                    Width="200"
+                                    Maximum="100"
+                                    Minimum="0"
+                                    ValueChanged="VolumeSlider_ValueChanged"
+                                    Value="50" />
+
+                                <!--  当前值显示  -->
+                                <TextBlock
+                                    x:Name="volumeValue"
+                                    Width="40"
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="50%" />
+                            </StackPanel>
+
+                            <!--  静音切换  -->
+                            <CheckBox
+                                x:Name="muteCheckBox"
+                                Checked="MuteCheckBox_Checked"
+                                Content="静音"
+                                Unchecked="MuteCheckBox_Unchecked" />
+                        </StackPanel>
+                    </TabItem>
+
+                    <!--  颜色选择器示例  -->
+                    <TabItem Header="颜色选择器">
+                        <StackPanel Margin="20">
+                            <TextBlock
+                                Margin="0,0,0,20"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="颜色选择器示例" />
+
+                            <!--  红色滑块  -->
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock Width="20" Text="R:" />
+                                <Slider
+                                    x:Name="redSlider"
+                                    Width="200"
+                                    Maximum="255"
+                                    Minimum="0"
+                                    ValueChanged="ColorSlider_ValueChanged"
+                                    Value="120" />
+                                <TextBlock
+                                    x:Name="redValue"
+                                    Width="30"
+                                    Margin="5,0,0,0"
+                                    Text="120" />
+                            </StackPanel>
+
+                            <!--  绿色滑块  -->
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock Width="20" Text="G:" />
+                                <Slider
+                                    x:Name="greenSlider"
+                                    Width="200"
+                                    Maximum="255"
+                                    Minimum="0"
+                                    ValueChanged="ColorSlider_ValueChanged"
+                                    Value="180" />
+                                <TextBlock
+                                    x:Name="greenValue"
+                                    Width="30"
+                                    Margin="5,0,0,0"
+                                    Text="180" />
+                            </StackPanel>
+
+                            <!--  蓝色滑块  -->
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock Width="20" Text="B:" />
+                                <Slider
+                                    x:Name="blueSlider"
+                                    Width="200"
+                                    Maximum="255"
+                                    Minimum="0"
+                                    ValueChanged="ColorSlider_ValueChanged"
+                                    Value="240" />
+                                <TextBlock
+                                    x:Name="blueValue"
+                                    Width="30"
+                                    Margin="5,0,0,0"
+                                    Text="240" />
+                            </StackPanel>
+
+                            <!--  颜色预览  -->
+                            <Border
+                                x:Name="colorPreview"
+                                Height="50"
+                                Margin="0,10,0,0"
+                                BorderBrush="Black"
+                                BorderThickness="1" />
+
+                            <!--  16进制颜色值  -->
+                            <TextBlock
+                                x:Name="hexColorTextBlock"
+                                Margin="0,5,0,0"
+                                HorizontalAlignment="Center"
+                                FontFamily="Consolas" />
+                        </StackPanel>
+                    </TabItem>
+
+                    <!--  数据可视化示例  -->
+                    <TabItem Header="数据可视化">
+                        <Grid Margin="20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!--  标题  -->
+                            <TextBlock
+                                Margin="0,0,0,20"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="数据可视化滑块示例" />
+
+                            <!--  数据可视化  -->
+                            <Canvas
+                                x:Name="visualizationCanvas"
+                                Grid.Row="1"
+                                Height="200"
+                                Margin="0,0,0,10"
+                                Background="#F5F5F5"
+                                SizeChanged="VisualizationCanvas_SizeChanged" />
+
+                            <!--  控制滑块  -->
+                            <StackPanel Grid.Row="2">
+                                <TextBlock
+                                    x:Name="dataValueText"
+                                    Margin="0,0,0,5"
+                                    Text="当前值: 0.0" />
+                                <Slider
+                                    x:Name="dataSlider"
+                                    Maximum="99"
+                                    Minimum="0"
+                                    TickFrequency="10"
+                                    TickPlacement="BottomRight"
+                                    ValueChanged="DataSlider_ValueChanged" />
+                                <Button
+                                    Margin="0,10,0,0"
+                                    Padding="10,5"
+                                    HorizontalAlignment="Left"
+                                    Click="GenerateNewData_Click"
+                                    Content="生成新的随机数据" />
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+
+            <TabItem Header="数据绑定">
+                <StackPanel Margin="20">
+                    <TextBlock
+                        Margin="0,0,0,20"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Text="Slider 数据绑定示例" />
+
+                    <!--  ViewModel绑定示例  -->
+                    <GroupBox
+                        Margin="0,0,0,20"
+                        Padding="10"
+                        Header="绑定到ViewModel">
+                        <StackPanel>
+                            <TextBlock Margin="0,0,0,10" Text="这个滑块使用双向绑定到ViewModel中的属性" />
+                            <Slider
+                                x:Name="bindingSlider"
+                                Width="300"
+                                HorizontalAlignment="Left"
+                                Maximum="100"
+                                Minimum="0"
+                                Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Margin="0,5,0,0" Text="{Binding SliderValue, StringFormat='当前值: {0:F1}'}" />
+
+                            <!--  使用按钮更新ViewModel中的值  -->
+                            <Button
+                                Margin="0,10,0,0"
+                                Padding="10,5"
+                                HorizontalAlignment="Left"
+                                Click="SetViewModel_Click"
+                                Content="在ViewModel中设置值为75" />
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!--  多控件同步示例  -->
+                    <GroupBox
+                        Margin="0,0,0,20"
+                        Padding="10"
+                        Header="多控件同步">
+                        <StackPanel>
+                            <TextBlock Margin="0,0,0,10" Text="以下控件通过数据绑定同步显示相同的值" />
+
+                            <!--  主滑块  -->
+                            <Slider
+                                x:Name="mainSlider"
+                                Width="300"
+                                Margin="0,0,0,10"
+                                HorizontalAlignment="Left"
+                                Maximum="100"
+                                Minimum="0"
+                                Value="50" />
+
+                            <!--  绑定到主滑块的进度条  -->
+                            <ProgressBar
+                                Width="300"
+                                Height="10"
+                                Margin="0,0,0,10"
+                                HorizontalAlignment="Left"
+                                Maximum="{Binding ElementName=mainSlider, Path=Maximum}"
+                                Value="{Binding ElementName=mainSlider, Path=Value}" />
+
+                            <!--  绑定到主滑块的文本显示  -->
+                            <TextBlock Margin="0,0,0,10" Text="{Binding ElementName=mainSlider, Path=Value, StringFormat='值: {0:F0}%'}" />
+
+                            <!--  第二个同步滑块 (垂直方向)  -->
+                            <Slider
+                                Height="100"
+                                HorizontalAlignment="Left"
+                                Maximum="{Binding ElementName=mainSlider, Path=Maximum}"
+                                Minimum="{Binding ElementName=mainSlider, Path=Minimum}"
+                                Orientation="Vertical"
+                                Value="{Binding ElementName=mainSlider, Path=Value, Mode=TwoWay}" />
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
