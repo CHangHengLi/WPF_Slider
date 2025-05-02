@@ -76,6 +76,6 @@
 
 ## 参考资料
 
-- WPF Slider类官方文档
-- WPF控件自定义指南
-- WPF数据绑定概述 
+- [WPF Slider类官方文档](https://learn.microsoft.com/zh-cn/dotnet/api/system.windows.controls.slider)
+- [WPF数据绑定概述](https://learn.microsoft.com/zh-cn/dotnet/desktop/wpf/data/data-binding-overview)
+- [Microsoft Learn - WPF UI设计](https://learn.microsoft.com/zh-cn/dotnet/desktop/wpf/getting-started/walkthrough-my-first-wpf-desktop-application)
