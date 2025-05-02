@@ -1,6 +1,7 @@
 # WPF Slider 控件学习示例
 
 这是一个基于.NET Core 8.0的WPF Slider控件学习示例项目，演示了WPF中Slider控件的各种功能和用法。
+![image](https://github.com/user-attachments/assets/ac037776-1bd4-43d1-bec6-128eea7412ee)
 
 ## 项目说明
 
